@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "./components/WithMt.exports";
 import { NavbarDefault } from "./components/NavBar";
 import Footer from "./components/Footer";
+import QueryClientProvider from "./QueryClientProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,17 +21,19 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <ThemeProvider>
-          <NavbarDefault />
-          <main>
-            <div className="container">{children}</div>
-          </main>
-          <div className="sm:relative">
-            <div className="">
-              <Footer />
+        <QueryClientProvider>
+          <ThemeProvider>
+            <NavbarDefault />
+            <main>
+              <div className="container">{children}</div>
+            </main>
+            <div className="sm:relative">
+              <div className="">
+                <Footer />
+              </div>
             </div>
-          </div>
-        </ThemeProvider>
+          </ThemeProvider>
+        </QueryClientProvider>
       </body>
     </html>
   );
