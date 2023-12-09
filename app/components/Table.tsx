@@ -1,43 +1,12 @@
 import { Card, Typography } from "@/app/components/WithMt.exports";
+import prisma from "@/prisma/db";
 
-const TABLE_HEAD = ["Token", "Amount", "Quantity", "ReferenceId"];
+const TABLE_HEAD = ["Token", "Amount", "ReferenceId", "Status"];
 
-const TABLE_ROWS = [
-  {
-    token: "John Michael",
-    amount: "Manager",
-    quantity: "23/04/18",
-    referenceId: "reetkat",
-  },
-  {
-    token: "Alexa Liras",
-    amount: "Developer",
-    quantity: "23/04/18",
-    referenceId: "reetkat",
-  },
-  {
-    token: "Laurent Perrier",
-    amount: "Executive",
-    quantity: "19/09/17",
-    referenceId: "reetkat",
-  },
-  {
-    token: "Michael Levi",
-    amount: "Developer",
-    quantity: "24/12/08",
-    referenceId: "reetkat",
-  },
-  {
-    token: "Richard Gran",
-    amount: "Manager",
-    quantity: "04/10/21",
-    referenceId: "reetkat",
-  },
-];
-
-const DefaultTable = () => {
+const DefaultTable = async () => {
+  const tokens = await prisma.token.findMany();
   return (
-    <Card className="h-full w-full overflow-scroll my-4">
+    <Card className="h-full w-full overflow-scroll my-4 mt-8">
       <table className="w-full min-w-max table-auto text-left">
         <thead>
           <tr>
@@ -58,12 +27,12 @@ const DefaultTable = () => {
           </tr>
         </thead>
         <tbody>
-          {TABLE_ROWS.map(({ token, amount, quantity, referenceId }, index) => {
-            const isLast = index === TABLE_ROWS.length - 1;
+          {tokens.map(({ id, token, amount, referenceId, status }, index) => {
+            const isLast = index === tokens.length - 1;
             const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
 
             return (
-              <tr key={referenceId}>
+              <tr key={id}>
                 <td className={classes}>
                   <Typography
                     variant="small"
@@ -88,7 +57,7 @@ const DefaultTable = () => {
                     color="blue-gray"
                     className="font-normal"
                   >
-                    {quantity}
+                    {referenceId}
                   </Typography>
                 </td>
                 <td className={classes}>
@@ -99,7 +68,7 @@ const DefaultTable = () => {
                     color="blue-gray"
                     className="font-medium"
                   >
-                    {referenceId}
+                    {status}
                   </Typography>
                 </td>
               </tr>

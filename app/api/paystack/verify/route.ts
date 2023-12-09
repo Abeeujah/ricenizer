@@ -3,7 +3,9 @@ import axios from "axios";
 import { NextRequest, NextResponse } from "next/server";
 import { paystackSignature } from "../../utils/paystack.signature";
 import { z } from "zod";
-const checkPaystackSignature = false;
+import prisma from "@/prisma/db";
+import { tokenize } from "@/app/utils/randomstring";
+import sendMail from "@/app/utils/mail.util";
 
 const secret = defaults["paystackSecretKey"]!;
 const config = {
@@ -30,13 +32,37 @@ export async function POST(request: NextRequest) {
     const paystack_url = `${defaults["paystackBaseURL"]}verify/${reference}`;
     const response = await axios.get(paystack_url, config);
 
-    console.log({ Data: response.data.data });
-    // add response data to the database
-    // return NextResponse.redirect("/");
-    return NextResponse.json(
-      { success: true, data: response.data.data },
-      { status: 200 }
-    );
+    const paystackResponse = response.data.data;
+
+    if (
+      paystackResponse.status === "success" &&
+      paystackResponse.reference === reference
+    ) {
+      const token = {
+        amount: paystackResponse.amount / 100,
+        referenceId: paystackResponse.reference,
+        token: tokenize(),
+      };
+
+      // add response data to the database
+      const regen = await prisma.token.create({ data: { ...token } });
+
+      const mail = {
+        amount: regen.amount,
+        token: regen.token,
+        reference: regen.referenceId,
+        email: paystackResponse.customer.email,
+      };
+
+      await sendMail(mail);
+
+      return NextResponse.json(
+        { success: true, data: { amount: regen.amount, token: regen.token } },
+        { status: 200 }
+      );
+    } else {
+      throw new Error("Invalid Credential");
+    }
   } catch (error) {
     console.error("Promised rejected ", error);
     return NextResponse.json({ success: false }, { status: 500 });
