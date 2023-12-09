@@ -35,7 +35,7 @@ const PaymentForm = () => {
   };
   return (
     <div className="my-8">
-      <form>
+      <form onSubmit={handleSubmit(submitHandler)}>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
           <div className="w-full">
             <Input
@@ -65,9 +65,10 @@ const PaymentForm = () => {
           </div>
         </div>
         <Button
-          onClick={handleSubmit(submitHandler)}
+          type="submit"
           className="rounded-full"
           size="lg"
+          disabled={isLoading}
         >
           Purchase
         </Button>

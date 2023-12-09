@@ -1,6 +1,6 @@
 import { paymentSchema } from "@/app/utils/validation";
-import axios from "axios";
 import defaults from "@/config/default";
+import axios from "axios";
 import { NextRequest, NextResponse } from "next/server";
 import { generateReference } from "../../utils/reference";
 
@@ -10,7 +10,7 @@ const paystackBaseURL = defaults["paystackBaseURL"];
 console.log({ paystackSecretKey, paystackBaseURL });
 
 const paystackInitializationIurl = `${paystackBaseURL}initialize`;
-const verifyUrl = "/api/paystack/transaction/verify";
+const verifyUrl = "/tokens";
 const config = {
   headers: {
     Authorization: `Bearer ${paystackSecretKey}`,
@@ -40,7 +40,7 @@ export async function POST(request: NextRequest) {
         amount,
         body,
         reference: generateReference(),
-        callback_url: "https://tcejorpyf-abeeujah.vercel.app/",
+        callback_url,
       },
       config
     );
