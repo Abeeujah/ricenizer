@@ -6,11 +6,9 @@ import { generateReference } from "../../utils/reference";
 
 const paystackSecretKey = defaults["paystackSecretKey"];
 const paystackBaseURL = defaults["paystackBaseURL"];
-
-console.log({ paystackSecretKey, paystackBaseURL });
+const callback_url = defaults["paystackCallbackURL"];
 
 const paystackInitializationIurl = `${paystackBaseURL}initialize`;
-const verifyUrl = "/tokens";
 const config = {
   headers: {
     Authorization: `Bearer ${paystackSecretKey}`,
@@ -25,10 +23,6 @@ export async function POST(request: NextRequest) {
   if (!validation.success) {
     return NextResponse.json({ error: "Bad request" }, { status: 400 });
   }
-
-  const host = request.headers.get("host");
-  const callback_url = `${host}${verifyUrl}`;
-  console.log({ callback_url });
 
   const { email, amount } = body;
 
