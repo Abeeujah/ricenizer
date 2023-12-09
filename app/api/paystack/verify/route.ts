@@ -1,11 +1,10 @@
+import sendMail from "@/app/utils/mail.util";
+import { tokenize } from "@/app/utils/randomstring";
 import defaults from "@/config/default";
+import prisma from "@/prisma/db";
 import axios from "axios";
 import { NextRequest, NextResponse } from "next/server";
-import { paystackSignature } from "../../utils/paystack.signature";
 import { z } from "zod";
-import prisma from "@/prisma/db";
-import { tokenize } from "@/app/utils/randomstring";
-import sendMail from "@/app/utils/mail.util";
 
 const secret = defaults["paystackSecretKey"]!;
 const config = {
