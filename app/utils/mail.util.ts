@@ -33,6 +33,18 @@ async function sendMail(part: TokenMail) {
 
   const transporter = nodemailer.createTransport(mailConfig);
 
+  await new Promise((resolve, reject) => {
+    transporter.verify(function (err, success) {
+      if (err) {
+        console.log(err);
+        reject(err);
+      } else {
+        console.log(success);
+        resolve(success);
+      }
+    });
+  });
+
   const { htmlMessage, textMessage, subject } = buildMail(part);
   const mailOptions = {
     from: googleAccount,
@@ -42,14 +54,18 @@ async function sendMail(part: TokenMail) {
     html: htmlMessage,
   };
 
-  transporter.sendMail(mailOptions, (err, info) => {
-    if (err) {
-      console.log(err);
-    }
+  await new Promise((resolve, reject) => {
+    transporter.sendMail(mailOptions, (err, info) => {
+      if (err) {
+        console.log(err);
+        reject(err);
+      }
 
-    if (info) {
-      console.log(info);
-    }
+      if (info) {
+        console.log(info);
+        resolve(info);
+      }
+    });
   });
 }
 

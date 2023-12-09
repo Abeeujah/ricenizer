@@ -22,7 +22,7 @@ const VerifyToken = () => {
   return (
     <div className="cotainer h-screen grid place-items-center">
       <div className="flex flex-col gap-4 items-center justify-center">
-        <Typography variant="h1">Token: {data?.data?.amount}</Typography>
+        <Typography variant="h1">Token: {data?.data?.token}</Typography>
         <Typography variant="small">Amount: {data?.data?.amount}</Typography>
       </div>
     </div>
