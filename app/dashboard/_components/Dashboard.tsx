@@ -15,7 +15,7 @@ const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 // const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
 const chartConfig = {
-  type: "bar",
+  type: "bar" as "bar",
   height: 240,
   width: "100%",
   series: [
@@ -31,7 +31,7 @@ const chartConfig = {
       },
     },
     title: {
-      show: "",
+      text: "",
     },
     dataLabels: {
       enabled: false,
