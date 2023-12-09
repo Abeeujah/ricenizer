@@ -2,10 +2,8 @@ import { Button, Typography } from "@/app/components/WithMt.exports";
 import Meadow from "@/public/meadow.jpg";
 import Image from "next/image";
 import DefaultTable from "../components/Table";
-import prisma from "@/prisma/db";
 
 const TokenPage = () => {
-
   return (
     <div className="container min-h-screen">
       <div className="grid my-4 col-span-1 sm:grid-cols-2 place-items-center">

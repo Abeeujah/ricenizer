@@ -1,5 +1,4 @@
 import { Typography } from "@/app/components/WithMt.exports";
-import React from "react";
 import PaymentForm from "./_components/PaymentForm";
 
 const PurchasePage = () => {

@@ -1,7 +1,7 @@
 "use client";
 
-import { Carousel, IconButton } from "./WithMt.exports";
 import Image from "next/image";
+import { Carousel, IconButton } from "./WithMt.exports";
 
 const CarouselCustomArrows = () => {
   return (

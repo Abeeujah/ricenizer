@@ -1,5 +1,3 @@
-import Link from "next/link";
-import { Button, Typography } from "./components/WithMt.exports";
 import Carousel from "./components/Carousel";
 import HeroText from "./components/HeroText";
 

@@ -1,6 +1,6 @@
+import defaults from "@/config/default";
 import nodemailer from "nodemailer";
 import { plainMessage, styledMail } from "./mail.html";
-import defaults from "@/config/default";
 
 const googleAccount = defaults["googleAccount"];
 const googlePassword = defaults["googlePassword"];
