@@ -31,7 +31,7 @@ export async function POST(request: NextRequest) {
       paystackInitializationIurl,
       {
         email,
-        amount,
+        amount: amount * 100,
         body,
         reference: generateReference(),
         callback_url,
