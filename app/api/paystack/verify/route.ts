@@ -37,6 +37,20 @@ export async function POST(request: NextRequest) {
       paystackResponse.status === "success" &&
       paystackResponse.reference === reference
     ) {
+      const fallback = await prisma.token.findUnique({
+        where: { referenceId: reference },
+      });
+
+      if (fallback?.token) {
+        return NextResponse.json(
+          {
+            success: true,
+            data: { amount: fallback.amount, token: fallback.token },
+          },
+          { status: 200 }
+        );
+      }
+
       const token = {
         amount: paystackResponse.amount / 100,
         referenceId: paystackResponse.reference,
@@ -45,6 +59,16 @@ export async function POST(request: NextRequest) {
 
       // add response data to the database
       const regen = await prisma.token.create({ data: { ...token } });
+
+      // POST to LET Innovate Endpoint
+      const letEndpoint = ""; // Insert url here
+      const tokenModel = {
+        token: regen.token,
+        status: regen.status,
+        amount: regen.amount,
+      };
+      
+      const letInn = await axios.post(letEndpoint, tokenModel);
 
       const mail = {
         amount: regen.amount,

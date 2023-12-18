@@ -31,6 +31,7 @@ const PaymentForm = () => {
         const paystack_authorzation_url = response.data.data.authorization_url;
         router.push(paystack_authorzation_url);
       })
+      .catch((e) => e.message)
       .finally(() => setIsLoading(false));
   };
   return (

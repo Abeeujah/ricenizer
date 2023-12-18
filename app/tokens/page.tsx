@@ -2,6 +2,7 @@ import { Button, Typography } from "@/app/components/WithMt.exports";
 import Meadow from "@/public/meadow.jpg";
 import Image from "next/image";
 import DefaultTable from "../components/Table";
+import Link from "next/link";
 
 const TokenPage = () => {
   return (
@@ -12,9 +13,11 @@ const TokenPage = () => {
             Grain access, you are just a token away
           </Typography>
 
-          <Button size="lg" className="rounded-full my-4">
-            Purchase
-          </Button>
+          <Link href={"/purchase"}>
+            <Button size="lg" className="rounded-full my-4">
+              Purchase
+            </Button>
+          </Link>
         </div>
         <div className="mx-auto">
           <Image
