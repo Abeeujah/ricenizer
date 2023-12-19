@@ -8,6 +8,7 @@ const config = {
   paystackCallbackURL: process.env.PAYSTACK_CALLBACK_URL,
   googleAccount: process.env.GOOGLE_ACCOUNT,
   googlePassword: process.env.GOOGLE_PASSWORD,
+  letInnovateEndpoint: process.env.LET_INNOVATE_TOKEN,
 };
 
 export default config;

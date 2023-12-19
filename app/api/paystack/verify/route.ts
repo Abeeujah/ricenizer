@@ -1,5 +1,4 @@
 import sendMail from "@/app/utils/mail.util";
-import { tokenize } from "@/app/utils/randomstring";
 import defaults from "@/config/default";
 import prisma from "@/prisma/db";
 import axios from "axios";
@@ -51,36 +50,26 @@ export async function POST(request: NextRequest) {
         );
       }
 
-      const token = {
-        amount: paystackResponse.amount / 100,
-        referenceId: paystackResponse.reference,
-        token: tokenize(),
-      };
+      const amount = paystackResponse.amount / 100;
 
-      // add response data to the database
-      const regen = await prisma.token.create({ data: { ...token } });
+      // Generate token from LET Innovate Endpoint
+      const letEndpoint = `${defaults["letInnovateEndpoint"]}${amount}`;
 
-      // POST to LET Innovate Endpoint
-      const letEndpoint = ""; // Insert url here
-      const tokenModel = {
-        token: regen.token,
-        status: regen.status,
-        amount: regen.amount,
-      };
-      
-      const letInn = await axios.post(letEndpoint, tokenModel);
+      const token = await axios
+        .get(letEndpoint)
+        .then((response) => response.data);
 
       const mail = {
-        amount: regen.amount,
-        token: regen.token,
-        reference: regen.referenceId,
+        amount,
+        token,
+        reference: paystackResponse.reference,
         email: paystackResponse.customer.email,
       };
 
       await sendMail(mail);
 
       return NextResponse.json(
-        { success: true, data: { amount: regen.amount, token: regen.token } },
+        { success: true, data: { amount, token } },
         { status: 200 }
       );
     } else {
