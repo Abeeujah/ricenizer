@@ -1,5 +1,5 @@
 import { Button, Typography } from "@/app/components/WithMt.exports";
-import Meadow from "@/public/meadow.jpg";
+import Meadow from "@/public/served.jpg";
 import Image from "next/image";
 import DefaultTable from "../components/Table";
 import Link from "next/link";
