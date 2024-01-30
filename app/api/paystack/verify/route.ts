@@ -59,6 +59,24 @@ export async function POST(request: NextRequest) {
         .get(letEndpoint)
         .then((response) => response.data);
 
+      const dbToken = await prisma.token.create({
+        data: { token, amount, referenceId: reference },
+      });
+
+      const conf = await prisma.token.findUnique({
+        where: { referenceId: reference },
+      });
+
+      if (conf) {
+        return NextResponse.json(
+          {
+            success: true,
+            data: { amount: conf.amount, token: conf.token },
+          },
+          { status: 200 }
+        );
+      }
+
       const mail = {
         amount,
         token,
@@ -66,7 +84,7 @@ export async function POST(request: NextRequest) {
         email: paystackResponse.customer.email,
       };
 
-      await sendMail(mail);
+      // await sendMail(mail);
 
       return NextResponse.json(
         { success: true, data: { amount, token } },
