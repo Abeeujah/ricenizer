@@ -1,8 +1,14 @@
 import { Button, Typography } from "@/app/components/WithMt.exports";
 import Meadow from "@/public/served.jpg";
+import { Metadata } from "next";
 import Image from "next/image";
-import DefaultTable from "../components/Table";
 import Link from "next/link";
+import DefaultTable from "../components/Table";
+
+export const metadata: Metadata = {
+  title: "Tokens",
+  description: "View all your tokens.",
+};
 
 const TokenPage = () => {
   return (

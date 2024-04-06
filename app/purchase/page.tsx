@@ -1,6 +1,11 @@
 import { Typography } from "@/app/components/WithMt.exports";
+import { Metadata } from "next";
 import PaymentForm from "./_components/PaymentForm";
-import HeroBg from "@/public/herobg.jpg";
+
+export const metadata: Metadata = {
+  title: "Purchase",
+  description: "Purchase your token.",
+};
 
 const PurchasePage = () => {
   return (

@@ -11,8 +11,8 @@ import {
   IconButton,
   Input,
   MobileNav,
-  Spinner,
   Navbar,
+  Spinner,
   ThemeProvider,
   Typography,
 } from "@material-tailwind/react";
@@ -27,9 +27,9 @@ export {
   Collapse,
   IconButton,
   Input,
-  Spinner,
   MobileNav,
   Navbar,
+  Spinner,
   ThemeProvider,
   Typography,
 };

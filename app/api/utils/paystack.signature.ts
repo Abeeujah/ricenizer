@@ -1,5 +1,5 @@
-import { createHmac } from "crypto";
 import defaults from "@/config/default";
+import { createHmac } from "crypto";
 
 const secret = defaults["paystackSecretKey"]!;
 

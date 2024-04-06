@@ -34,3 +34,11 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+This project was developed to interact with a grain dispensing hardware. The aim of this web application is to generate, validate user's tokens to interface with the hardware system of the automated grain dispenser.
+
+It leverages PayStack as the Payment Gateway.
+Next.js framework for SEO friendly, Performant, and high-quality web application.
+Vercel serverless functions to execute API requests.
+
+You can check out the web application on [Ricenizer](https://ricenizer.vercel.app/) to interact with the web app, your contributions are welcome!.

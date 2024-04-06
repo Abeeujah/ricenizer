@@ -2,13 +2,7 @@
 
 import Link from "next/link";
 import React from "react";
-import {
-  Button,
-  Collapse,
-  IconButton,
-  Navbar,
-  Typography,
-} from "./WithMt.exports";
+import { Collapse, IconButton, Navbar, Typography } from "./WithMt.exports";
 
 export function NavbarDefault() {
   const [openNav, setOpenNav] = React.useState(false);

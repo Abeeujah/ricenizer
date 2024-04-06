@@ -8,7 +8,13 @@ import {
 } from "@/app/components/WithMt.exports";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import { Metadata } from "next";
 import { useSearchParams } from "next/navigation";
+
+export const metadata: Metadata = {
+  title: "Verify",
+  description: "Verify purchase transaction.",
+};
 
 const VerifyToken = () => {
   const searchParams = useSearchParams();

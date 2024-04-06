@@ -84,7 +84,7 @@ export async function POST(request: NextRequest) {
         email: paystackResponse.customer.email,
       };
 
-      // await sendMail(mail);
+      await sendMail(mail);
 
       return NextResponse.json(
         { success: true, data: { amount, token } },

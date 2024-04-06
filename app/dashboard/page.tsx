@@ -1,5 +1,11 @@
-import DashboardComponent from './_components/Dashboard';
+import { Metadata } from "next";
+import DashboardComponent from "./_components/Dashboard";
 import CardWithLink from "./_components/DashboardCard";
+
+export const metadata: Metadata = {
+  title: "Dashboard",
+  description: "Monitor your activity.",
+};
 
 const Dashboard = () => {
   return (
@@ -10,7 +16,7 @@ const Dashboard = () => {
         <CardWithLink />
       </div>
       <div className="my-4">
-          <DashboardComponent />
+        <DashboardComponent />
       </div>
     </div>
   );
