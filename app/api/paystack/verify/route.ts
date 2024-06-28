@@ -1,4 +1,5 @@
 import sendMail from "@/app/utils/mail.util";
+import { tokenize } from "@/app/utils/randomstring";
 import defaults from "@/config/default";
 import prisma from "@/prisma/db";
 import axios from "axios";
@@ -27,6 +28,20 @@ export async function POST(request: NextRequest) {
   const { reference } = validation.data;
 
   try {
+    const conf = await prisma.token.findUnique({
+      where: { referenceId: reference },
+    });
+
+    if (conf) {
+      return NextResponse.json(
+        {
+          success: true,
+          data: { amount: conf.amount, token: conf.token },
+        },
+        { status: 200 }
+      );
+    }
+
     const paystack_url = `${defaults["paystackBaseURL"]}verify/${reference}`;
     const response = await axios.get(paystack_url, config);
 
@@ -49,33 +64,13 @@ export async function POST(request: NextRequest) {
           { status: 200 }
         );
       }
-
       const amount = paystackResponse.amount / 100;
 
-      // Generate token from LET Innovate Endpoint
-      const letEndpoint = `${defaults["letInnovateEndpoint"]}${amount}`;
-
-      const token = await axios
-        .get(letEndpoint)
-        .then((response) => response.data);
-
-      const dbToken = await prisma.token.create({
+      // Generate token
+      const token = tokenize();
+      await prisma.token.create({
         data: { token, amount, referenceId: reference },
       });
-
-      const conf = await prisma.token.findUnique({
-        where: { referenceId: reference },
-      });
-
-      if (conf) {
-        return NextResponse.json(
-          {
-            success: true,
-            data: { amount: conf.amount, token: conf.token },
-          },
-          { status: 200 }
-        );
-      }
 
       const mail = {
         amount,
