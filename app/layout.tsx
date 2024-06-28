@@ -10,12 +10,12 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(siteConfig.url.base),
   title: { default: siteConfig.name, template: `%s | ${siteConfig.name}` },
   description: siteConfig.description,
   keywords: siteConfig.keywords,
   authors: [{ name: siteConfig.author, url: siteConfig.url.author }],
   creator: siteConfig.author,
-  metadataBase: new URL(siteConfig.url.base),
   openGraph: {
     type: "website",
     locale: "en_US",
